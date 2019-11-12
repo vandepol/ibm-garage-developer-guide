@@ -46,6 +46,9 @@ spec:
         - secretRef:
             name: sonarqube-access
             optional: true
+        - secretRef:
+            name: ${env.JOB_NAME}
+            optional: true
       env:
         - name: HOME
           value: ${workingDir}
@@ -85,6 +88,10 @@ spec:
                 sh '''#!/bin/bash
                    git add .
                    git commit -m "Pipeline updates"
+
+                   git config credential.helper 'store --file ./.git-credentials'
+                   echo "https://${username}:${password}@github.com" >> ./.git-credentials
+
                    git push
                 '''
             }
