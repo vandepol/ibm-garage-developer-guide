@@ -18,9 +18,6 @@ def buildAgentName(String jobName, String buildNumber) {
     return "a.${jobName}.${buildNumber}".replace('_', '-').replace('/', '-').replace('-.', '.');
 }
 
-def buildJobName(String jobName) {
-}
-
 def buildLabel = buildAgentName(env.JOB_NAME, env.BUILD_NUMBER);
 def namespace = env.NAMESPACE ?: "dev"
 def cloudName = env.CLOUD_NAME == "openshift" ? "openshift" : "kubernetes"
