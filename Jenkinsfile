@@ -52,6 +52,8 @@ spec:
       env:
         - name: HOME
           value: ${workingDir}
+        - name: JOB_NAME
+          value: ${env.JOB_NAME}
 """
 ) {
     node(buildLabel) {
@@ -59,6 +61,7 @@ spec:
             checkout scm
             stage('Install') {
                 sh '''#!/bin/bash
+                    echo "Job name: ${JOB_NAME}"
                     npm install
                 '''
             }
